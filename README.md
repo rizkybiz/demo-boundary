@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- HashiCorp Cloud Platform Client ID and Secret
+- [HashiCorp Cloud Platform](https://portal.cloud.hashicorp.com/sign-in) Client ID and Secret
 - Docker installed locally
 - Terraform CLI version 1.4.6 installed locally
 - Boundary CLI version 0.12.2 or greater installed locally
