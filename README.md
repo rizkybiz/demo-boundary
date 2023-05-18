@@ -14,3 +14,12 @@
 3. Initialize Terraform: `terraform init`
 4. Set Terraform variables
 5. Apply Terraform: `terraform apply`
+
+## Variables
+
+| Terraform Variable |          ENV_VAR         |                Description               |
+|:------------------:|:------------------------:|:----------------------------------------:|
+| boundary_username  | TF_VAR_boundary_username | Initial Boundary authentication username |
+| boundary_password  | TF_VAR_boundary_password | Initial Boundary authentication password |
+| hcp_client_id      | TF_VAR_hcp_client_id     | HCP Service Principle Client ID          |
+| hcp_client_secret  | TF_VAR_hcp_client_secret | HCP Service Principle Client Secret      |
