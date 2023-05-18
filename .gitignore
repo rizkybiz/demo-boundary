@@ -1,0 +1,8 @@
+*.tfvars
+*.lock.hcl
+*.lock.info
+*.tfstate
+*.tfstate.backup
+.terraform
+boundary_auth
+ssh_keys
