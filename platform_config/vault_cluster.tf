@@ -1,21 +1,3 @@
-resource "hcp_hvn" "boundary_demo_hvn" {
-  hvn_id         = "boundary-demo-hvn"
-  cloud_provider = "aws"
-  region         = "us-east-1"
-  cidr_block     = "172.16.0.0/20"
-}
-
-resource "hcp_vault_cluster" "boundary_demo_vault" {
-  cluster_id      = "boundary-demo-vault"
-  hvn_id          = hcp_hvn.boundary_demo_hvn.hvn_id
-  tier            = "dev"
-  public_endpoint = true
-}
-
-resource "hcp_vault_cluster_admin_token" "vault_admin_token" {
-  cluster_id = hcp_vault_cluster.boundary_demo_vault.cluster_id
-}
-
 resource "vault_namespace" "boundary_demo_namespace" {
   namespace = "admin"
   path      = "boundary-demo"
@@ -44,16 +26,18 @@ resource "vault_mount" "boundary_kvv2" {
 }
 
 resource "vault_kv_secret_v2" "ssh_credentials" {
+  depends_on = [ vault_mount.boundary_kvv2 ]
   namespace = vault_namespace.boundary_demo_namespace.path_fq
   mount     = "/ssh-creds"
   name      = "openssh-server-creds"
   data_json = jsonencode({
     username    = "admin"
-    private_key = file("${abspath(path.root)}/ssh_keys/openssh-key")
+    private_key = "${tls_private_key.ecdsa_private_key.private_key_openssh}"
   })
 }
 
 resource "vault_kv_secret_v2" "app_credentials" {
+  depends_on = [ vault_mount.boundary_kvv2 ]
   namespace = vault_namespace.boundary_demo_namespace.path_fq
   mount     = "/ssh-creds"
   name      = "app-credentials"

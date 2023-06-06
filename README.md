@@ -11,9 +11,16 @@
 
 1. Clone this repo: `git clone git@github.com:rizkybiz/demo-boundary.git`
 2. Move into repo directory: `cd demo-boundary`
-3. Initialize Terraform: `terraform init`
-4. Set Terraform variables
-5. Apply Terraform: `terraform apply`
+3. Move into the `infra` directory: `cd infra`
+4. Initialize Terraform: `terraform init`
+5. Set Terraform variables
+6. Apply Terraform: `terraform apply`
+7. Move into the `platform_config` directory: `cd ../platform_config`
+8. Initialize Terraform: `terraform init`
+5. Set Terraform variables
+6. Apply Terraform: `terraform apply`
+7. Set ENV VAR for Boundary url from output: `export BOUNDARY_ADDR=<address from output>`
+8. Authenticate with Boundary: `boundary authenticate password -login-name=<provided boundary username variable>`
 
 ## Variables
 

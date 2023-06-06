@@ -1,5 +1,5 @@
 locals {
-  boundary_cluster_id = trimsuffix(trimprefix(hcp_boundary_cluster.demo_cluster.cluster_url, "https://"), ".boundary.hashicorp.cloud")
+  boundary_cluster_id = trimsuffix(trimprefix(local.boundary_addr, "https://"), ".boundary.hashicorp.cloud")
 }
 
 resource "local_file" "boundary_worker_config" {

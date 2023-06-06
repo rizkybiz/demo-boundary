@@ -1,19 +1,3 @@
-locals {
-  boundary_cluster_name = "my-demo-cluster"
-}
-
-provider "boundary" {
-  addr                            = hcp_boundary_cluster.demo_cluster.cluster_url
-  password_auth_method_login_name = var.boundary_username
-  password_auth_method_password   = var.boundary_password
-}
-
-resource "hcp_boundary_cluster" "demo_cluster" {
-  cluster_id = local.boundary_cluster_name
-  username   = var.boundary_username
-  password   = var.boundary_password
-}
-
 resource "boundary_worker" "demo_worker" {
   name     = "demo-worker-1"
   scope_id = "global"
@@ -37,7 +21,7 @@ resource "boundary_credential_store_vault" "demo_cred_store" {
   name        = "demo-credential-store"
   description = "Credential store for demoing Boundary"
   scope_id    = boundary_scope.demo_project.id
-  address     = hcp_vault_cluster.boundary_demo_vault.vault_public_endpoint_url
+  address     = local.vault_addr
   namespace   = vault_namespace.boundary_demo_namespace.path_fq
   token       = vault_token.boundary_controller_token.client_token
 }
@@ -95,5 +79,5 @@ resource "boundary_target" "openssh_target" {
   injected_application_credential_source_ids = [
     boundary_credential_library_vault.demo_cred_library_ssh.id
   ]
-  egress_worker_filter  = "\"dev\" in \"/tags/type\""
+  egress_worker_filter = "\"dev\" in \"/tags/type\""
 }
