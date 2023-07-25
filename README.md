@@ -3,6 +3,7 @@
 ## Prerequisites
 
 - [HashiCorp Cloud Platform](https://portal.cloud.hashicorp.com/sign-in) Client ID and Secret
+  - In order to access the project level, create the service principal at the org level
 - Docker installed locally
 - Terraform CLI version 1.4.6 installed locally
 - Boundary CLI version 0.12.2 or greater installed locally
